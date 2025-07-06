@@ -531,7 +531,7 @@ function createQuestion(questionData, creating = false) {
         editQuestions[questionData.id].id = questionData.id;
       }
     });
-    idInfoBtn.addEventListener("click", () => {
+    idInfoBtn.addEventListener("mousedown", () => {
       warningPupup(
         'Think of the question ID as a special code, such as "books" for a question about books. This code helps us organize and identify your questions within the app.',
         () => {},
@@ -553,7 +553,7 @@ function createQuestion(questionData, creating = false) {
   });
 
   if (cancleBtn) {
-    cancleBtn.addEventListener("click", () => {
+    cancleBtn.addEventListener("mousedown", () => {
       setTimeout(() => {
         detailedEditBtn.classList.remove("hidden");
         questionDetailedControlls.classList.add("hidden");
@@ -583,7 +583,7 @@ function createQuestion(questionData, creating = false) {
       }, 200);
     });
   }
-  doneBtn.addEventListener("click", () => {
+  doneBtn.addEventListener("mousedown", () => {
     setTimeout(() => {
       if (editQuestions[questionData.id].id == NEWQUESTIONID) {
         warningPupup("Please Enter a Valid ID", (e) => {}, true);
@@ -595,19 +595,19 @@ function createQuestion(questionData, creating = false) {
       }
     }, 200);
   });
-  deleteBtn.addEventListener("click", () => {
+  deleteBtn.addEventListener("mousedown", () => {
     question.remove();
     delete editQuestions[questionData.id];
     delete questionsDom[questionData.id];
     refreshQuestionStyling();
   });
-  upBtn.addEventListener("click", () => {
+  upBtn.addEventListener("mousedown", () => {
     questionOrderChangeUp(questionData.id);
   });
-  downBtn.addEventListener("click", () => {
+  downBtn.addEventListener("mousedown", () => {
     questionOrderChangeDown(questionData.id);
   });
-  detailedEditBtn.addEventListener("click", () => {
+  detailedEditBtn.addEventListener("mousedown", () => {
     setTimeout(() => {
       detailedEditBtn.classList.add("hidden");
       questionDetailedControlls.classList.remove("hidden");
@@ -645,13 +645,13 @@ function setupReportSection() {
     let noButton = toggleButtons[i].getElementsByClassName("No")[0];
     let indicator = toggleButtons[i].getElementsByClassName("indicator")[0];
     let id = toggleButtons[i].id;
-    yesButton.addEventListener("click", () => {
+    yesButton.addEventListener("mousedown", () => {
       indicator.classList.remove("indicator-off");
       noButton.classList.remove("selectedYesNoBtn");
       yesButton.classList.add("selectedYesNoBtn");
       changeQuestionValue(id, true);
     });
-    noButton.addEventListener("click", () => {
+    noButton.addEventListener("mousedown", () => {
       indicator.classList.add("indicator-off");
       yesButton.classList.remove("selectedYesNoBtn");
       noButton.classList.add("selectedYesNoBtn");
@@ -891,7 +891,7 @@ function populateCalander(month, year) {
     `;
     dayContainer.innerHTML = daysDom;
     daysContainer.appendChild(dayContainer);
-    dayContainer.children[0].addEventListener("click", () => {
+    dayContainer.children[0].addEventListener("mousedown", () => {
       daySelected(dayContainer.children[0].id, i, month, year);
     });
   }
@@ -1237,7 +1237,7 @@ function warningPupup(warning, callback, info = false) {
   }
   warningContainer.getElementsByClassName("warning")[0].innerText = warning;
   warningCancle.addEventListener(
-    "click",
+    "mousedown",
     () => {
       setTimeout(() => {
         callback(false);
@@ -1247,7 +1247,7 @@ function warningPupup(warning, callback, info = false) {
     { once: true }
   );
   warningDone.addEventListener(
-    "click",
+    "mousedown",
     () => {
       setTimeout(() => {
         callback(true);
@@ -1484,7 +1484,7 @@ export function monthChange(direction, ripple = true) {
   }
   updateCalander();
 }
-themeBtn.addEventListener("click", () => {
+themeBtn.addEventListener("mousedown", () => {
   JSON.stringify(currentTheme) == JSON.stringify(themes.Light)
     ? changeTheme(themes.Dark)
     : changeTheme(themes.Light);
@@ -1508,7 +1508,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", toggleTransparentBackground);
   window.addEventListener("resize", toggleTransparentBackground);
 });
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("mousedown", () => {
   if (currentUser) {
     signOut();
     localStorage.clear();
@@ -1517,11 +1517,11 @@ loginBtn.addEventListener("click", () => {
     signIn();
   }
 });
-reportBtn.addEventListener("click", (e) => {
+reportBtn.addEventListener("mousedown", (e) => {
   windowNavigation(JOURNAL, "");
   updateView(JOURNAL);
 });
-calanderBtn.addEventListener("click", (e) => {
+calanderBtn.addEventListener("mousedown", (e) => {
   if (!editing) {
     updateView(CALENDAR);
     currentMonth = todaysMonth;
@@ -1544,7 +1544,7 @@ calanderBtn.addEventListener("click", (e) => {
     });
   }
 });
-userBtn.addEventListener("click", (e) => {
+userBtn.addEventListener("mousedown", (e) => {
   if (!editing) {
     cancleEdit();
     windowNavigation(PROFILE, "");
@@ -1561,13 +1561,13 @@ userBtn.addEventListener("click", (e) => {
     });
   }
 });
-prevMonthButton.addEventListener("click", () => {
+prevMonthButton.addEventListener("mousedown", () => {
   monthChange("previous");
 });
-nextMonthButton.addEventListener("click", () => {
+nextMonthButton.addEventListener("mousedown", () => {
   monthChange("next");
 });
-resetCalanderButton.addEventListener("click", () => {
+resetCalanderButton.addEventListener("mousedown", () => {
   currentMonth = todaysMonth;
   currentYear = todaysYear;
   selectedDate = todaysDate;
@@ -1578,7 +1578,7 @@ resetCalanderButton.addEventListener("click", () => {
   calanderSwipe("reset");
   updateCalander();
 });
-reportEditBtn.addEventListener("click", () => {
+reportEditBtn.addEventListener("mousedown", () => {
   setTimeout(() => {
     editing = true;
     editQuestions = window.structuredClone(questions);
@@ -1587,7 +1587,7 @@ reportEditBtn.addEventListener("click", () => {
     showQuestionsEditControlls();
   }, 100);
 });
-reportEditCancleBtn.addEventListener("click", () => {
+reportEditCancleBtn.addEventListener("mousedown", () => {
   setTimeout(() => {
     if (!editing) {
       cancleEdit();
@@ -1598,7 +1598,7 @@ reportEditCancleBtn.addEventListener("click", () => {
     }
   }, 100);
 });
-reportEditDoneBtn.addEventListener("click", () => {
+reportEditDoneBtn.addEventListener("mousedown", () => {
   setTimeout(() => {
     if (
       editQuestions[NEWQUESTIONID] &&
@@ -1626,7 +1626,7 @@ reportEditDoneBtn.addEventListener("click", () => {
     }
   }, 100);
 });
-reportAddQuestionBtn.addEventListener("click", (e) => {
+reportAddQuestionBtn.addEventListener("mousedown", (e) => {
   if (addQuestionPopup.classList.contains("hidden")) {
     let height = e.srcElement.offsetHeight + 20;
     addQuestionPopup.style.top = height + "px";
@@ -1636,33 +1636,33 @@ reportAddQuestionBtn.addEventListener("click", (e) => {
     hidePopup();
   }
 });
-backdrop.addEventListener("click", () => {
+backdrop.addEventListener("mousedown", () => {
   hidePopup();
 });
 addQuestionPopup
   .getElementsByClassName("small-text")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("small-text");
     }, 100);
   });
 addQuestionPopup
   .getElementsByClassName("toggle")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("toggle");
     }, 100);
   });
 addQuestionPopup
   .getElementsByClassName("sliderOption")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("slider");
     }, 100);
   });
 addQuestionPopup
   .getElementsByClassName("large-text")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("large-text");
     }, 100);

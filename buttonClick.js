@@ -13,7 +13,7 @@ export function updateButtons() {
     });
     let button = currentButtons[i]
     if(ifadd){
-      button.addEventListener("click", function (e) {
+      button.addEventListener("mousedown", function (e) {
         const ripple = document.createElement("span");
         ripple.classList.add("ripple");
         const rect = button.getBoundingClientRect();
