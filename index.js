@@ -169,8 +169,8 @@ if (allJournals) {
 let currentTheme = JSON.parse(localStorage.getItem("preferences"))
   ? JSON.parse(localStorage.getItem("preferences")).theme
   : prefersDarkMode
-  ? themes.Dark
-  : themes.Light;
+    ? themes.Dark
+    : themes.Light;
 changeTheme(currentTheme);
 if (data && data.questions) {
   questions = data.questions;
@@ -350,33 +350,29 @@ function createQuestion(questionData, creating = false) {
                     <i class="fa-solid fa-angle-up"></i>
                   </div>
                 </div>
-                <div class="detailedEditBtn ripple-button ${
-                  !creating ? "" : "hidden"
-                }">
+                <div class="detailedEditBtn ripple-button ${!creating ? "" : "hidden"
+    }">
                   <i class="fa-solid fa-pen"></i>
                 </div>
                 <div class="detailedControlls ${creating ? "" : "hidden"}">
                   <div class="delete ripple-button">
                     <i class="fa-solid fa-trash"></i>
                   </div>
-                  ${
-                    creating
-                      ? ""
-                      : `<div class="cancle ripple-button">
+                  ${creating
+      ? ""
+      : `<div class="cancle ripple-button">
                           <i class="fa-solid fa-xmark"></i>
                         </div>`
-                  }
+    }
                   <div class="done ripple-button">
                     <i class="fa-solid fa-check"></i>
                   </div>
                 </div>
               </div>
-              <div class="detailedControllsContainer ${
-                creating ? "" : "hidden"
-              }">
-                  ${
-                    creating
-                      ? `<div class="id-input-container">
+              <div class="detailedControllsContainer ${creating ? "" : "hidden"
+    }">
+                  ${creating
+      ? `<div class="id-input-container">
                       <input
                         type="text"
                         name=""
@@ -387,8 +383,8 @@ function createQuestion(questionData, creating = false) {
                         <i class="fa-solid fa-question"></i>
                       </div>
                     </div>`
-                      : ""
-                  }
+      : ""
+    }
                 <input
                   type="text"
                   name=""
@@ -400,9 +396,8 @@ function createQuestion(questionData, creating = false) {
   switch (type) {
     case "small-text":
       questionContainer.innerHTML = `
-        <input type="text" placeholder="${questionData.lable}" id="${
-        questionData.id
-      }" value = "${questionData.value ? questionData.value : ""}"/>
+        <input type="text" placeholder="${questionData.lable}" id="${questionData.id
+        }" value = "${questionData.value ? questionData.value : ""}"/>
       `;
       questionContainer
         .getElementsByTagName("input")[0]
@@ -416,9 +411,8 @@ function createQuestion(questionData, creating = false) {
         <div class="yes-no-button" id=${questionData.id}>
         <div class="No">No</div>
           <div class="yes">Yes</div>
-          <div class="indicator ${
-            questionData.value == true ? "" : "indicator-off"
-          }"></div>
+          <div class="indicator ${questionData.value == true ? "" : "indicator-off"
+        }"></div>
         </div>
         `;
       break;
@@ -441,21 +435,16 @@ function createQuestion(questionData, creating = false) {
             />
           </div>
           <div class="emojiEdit ${creating ? "" : "hidden"}">
-                <input type="text" class="emojiInput" value="${
-                  questionData.emotes[0]
-                }"/>
-                <input type="text" class="emojiInput" value="${
-                  questionData.emotes[1]
-                }"/>
-                <input type="text" class="emojiInput" value="${
-                  questionData.emotes[2]
-                }"/>
-                <input type="text" class="emojiInput" value="${
-                  questionData.emotes[3]
-                }"/>
-                <input type="text" class="emojiInput" value="${
-                  questionData.emotes[4]
-                }"/>
+                <input type="text" class="emojiInput" value="${questionData.emotes[0]
+        }"/>
+                <input type="text" class="emojiInput" value="${questionData.emotes[1]
+        }"/>
+                <input type="text" class="emojiInput" value="${questionData.emotes[2]
+        }"/>
+                <input type="text" class="emojiInput" value="${questionData.emotes[3]
+        }"/>
+                <input type="text" class="emojiInput" value="${questionData.emotes[4]
+        }"/>
           </div>
         `;
       break;
@@ -531,10 +520,10 @@ function createQuestion(questionData, creating = false) {
         editQuestions[questionData.id].id = questionData.id;
       }
     });
-    idInfoBtn.addEventListener("click", () => {
+    idInfoBtn.addEventListener("mousedown", () => {
       warningPupup(
         'Think of the question ID as a special code, such as "books" for a question about books. This code helps us organize and identify your questions within the app.',
-        () => {},
+        () => { },
         true
       );
     });
@@ -553,7 +542,7 @@ function createQuestion(questionData, creating = false) {
   });
 
   if (cancleBtn) {
-    cancleBtn.addEventListener("click", () => {
+    cancleBtn.addEventListener("mousedown", () => {
       setTimeout(() => {
         detailedEditBtn.classList.remove("hidden");
         questionDetailedControlls.classList.add("hidden");
@@ -583,10 +572,10 @@ function createQuestion(questionData, creating = false) {
       }, 200);
     });
   }
-  doneBtn.addEventListener("click", () => {
+  doneBtn.addEventListener("mousedown", () => {
     setTimeout(() => {
       if (editQuestions[questionData.id].id == NEWQUESTIONID) {
-        warningPupup("Please Enter a Valid ID", (e) => {}, true);
+        warningPupup("Please Enter a Valid ID", (e) => { }, true);
       } else {
         detailedEditBtn.classList.remove("hidden");
         questionDetailedControlls.classList.add("hidden");
@@ -595,19 +584,32 @@ function createQuestion(questionData, creating = false) {
       }
     }, 200);
   });
-  deleteBtn.addEventListener("click", () => {
+  deleteBtn.addEventListener("mousedown", () => {
     question.remove();
     delete editQuestions[questionData.id];
     delete questionsDom[questionData.id];
+    reOrderQuestions(editQuestions);
+
+    Object.keys(editQuestions).forEach(key => {
+      if (questionsDom[key]) {
+        questionsDom[key].style.order = editQuestions[key].order;
+      }
+    });
+
     refreshQuestionStyling();
   });
-  upBtn.addEventListener("click", () => {
+  upBtn.addEventListener("mousedown", () => {
     questionOrderChangeUp(questionData.id);
   });
-  downBtn.addEventListener("click", () => {
+  downBtn.addEventListener("mousedown", () => {
     questionOrderChangeDown(questionData.id);
   });
-  detailedEditBtn.addEventListener("click", () => {
+
+  questionEditControlls.addEventListener("mousedown", handleDragStart);
+  questionEditControlls.addEventListener("touchstart", handleDragStart, { passive: false });
+  questionEditControlls.style.cursor = "grab";
+
+  detailedEditBtn.addEventListener("mousedown", () => {
     setTimeout(() => {
       detailedEditBtn.classList.add("hidden");
       questionDetailedControlls.classList.remove("hidden");
@@ -645,13 +647,13 @@ function setupReportSection() {
     let noButton = toggleButtons[i].getElementsByClassName("No")[0];
     let indicator = toggleButtons[i].getElementsByClassName("indicator")[0];
     let id = toggleButtons[i].id;
-    yesButton.addEventListener("click", () => {
+    yesButton.addEventListener("mousedown", () => {
       indicator.classList.remove("indicator-off");
       noButton.classList.remove("selectedYesNoBtn");
       yesButton.classList.add("selectedYesNoBtn");
       changeQuestionValue(id, true);
     });
-    noButton.addEventListener("click", () => {
+    noButton.addEventListener("mousedown", () => {
       indicator.classList.add("indicator-off");
       yesButton.classList.remove("selectedYesNoBtn");
       noButton.classList.add("selectedYesNoBtn");
@@ -844,31 +846,28 @@ function populateCalander(month, year) {
   for (let i = prevMonthDays - firstDateDay + 1; i <= prevMonthDays; i++) {
     let dayContainer = document.createElement("div");
     daysDom = `
-    <div class="day otherMonthDay ${
-      selectedDate == i &&
-      getMonthYearNumber(month - 1, currentYear).month == selectedMonth &&
-      getMonthYearNumber(month - 1, currentYear).year == selectedYear
+    <div class="day otherMonthDay ${selectedDate == i &&
+        getMonthYearNumber(month - 1, currentYear).month == selectedMonth &&
+        getMonthYearNumber(month - 1, currentYear).year == selectedYear
         ? "selectedDay"
         : ""
-    } ${
-      allJournals.hasOwnProperty(previousMonthString)
+      } ${allJournals.hasOwnProperty(previousMonthString)
         ? allJournals[previousMonthString][
-            i +
-              ":" +
-              getMonthYearNumber(month - 1, selectedYear).month +
-              ":" +
-              getMonthYearNumber(month - 1, currentYear).year
-          ]
+          i +
+          ":" +
+          getMonthYearNumber(month - 1, selectedYear).month +
+          ":" +
+          getMonthYearNumber(month - 1, currentYear).year
+        ]
           ? "trackedDay"
           : ""
         : ""
-    }" id="${
-      i +
+      }" id="${i +
       ":" +
       getMonthYearNumber(month - 1, currentYear).month +
       ":" +
       getMonthYearNumber(month - 1, currentYear).year
-    }">${i}</div>
+      }">${i}</div>
     `;
     dayContainer.innerHTML = daysDom;
     daysContainer.appendChild(dayContainer);
@@ -876,54 +875,49 @@ function populateCalander(month, year) {
   for (let i = 1; i <= daysInMonth; i++) {
     let dayContainer = document.createElement("div");
     daysDom = `
-    <div class="day ${
-      selectedDate == i && month == selectedMonth && year == selectedYear
+    <div class="day ${selectedDate == i && month == selectedMonth && year == selectedYear
         ? "selectedDay"
         : ""
-    } ${
-      allJournals.hasOwnProperty(currentMonthString)
+      } ${allJournals.hasOwnProperty(currentMonthString)
         ? allJournals[currentMonthString][i + ":" + month + ":" + year]
           ? "trackedDay"
           : ""
         : ""
-    }"
+      }"
     id="${i + ":" + month + ":" + year}">${i}</div>
     `;
     dayContainer.innerHTML = daysDom;
     daysContainer.appendChild(dayContainer);
-    dayContainer.children[0].addEventListener("click", () => {
+    dayContainer.children[0].addEventListener("mousedown", () => {
       daySelected(dayContainer.children[0].id, i, month, year);
     });
   }
   for (let i = 1; i <= 6 - lastDateDay; i++) {
     let dayContainer = document.createElement("div");
     daysDom = `
-    <div class="day otherMonthDay ${
-      selectedDate == i &&
-      getMonthYearNumber(month + 1, currentYear).month == selectedMonth &&
-      getMonthYearNumber(month + 1, currentYear).year == selectedYear
+    <div class="day otherMonthDay ${selectedDate == i &&
+        getMonthYearNumber(month + 1, currentYear).month == selectedMonth &&
+        getMonthYearNumber(month + 1, currentYear).year == selectedYear
         ? "selectedDay"
         : ""
-    } ${
-      allJournals.hasOwnProperty(nextMonthString)
+      } ${allJournals.hasOwnProperty(nextMonthString)
         ? allJournals[nextMonthString][
-            i +
-              ":" +
-              getMonthYearNumber(month + 1, currentYear).month +
-              ":" +
-              getMonthYearNumber(month + 1, currentYear).year
-          ]
+          i +
+          ":" +
+          getMonthYearNumber(month + 1, currentYear).month +
+          ":" +
+          getMonthYearNumber(month + 1, currentYear).year
+        ]
           ? "trackedDay"
           : ""
         : ""
-    }"
-  id="${
-    i +
-    ":" +
-    getMonthYearNumber(month + 1, currentYear).month +
-    ":" +
-    getMonthYearNumber(month + 1, currentYear).year
-  }">${i}</div>
+      }"
+  id="${i +
+      ":" +
+      getMonthYearNumber(month + 1, currentYear).month +
+      ":" +
+      getMonthYearNumber(month + 1, currentYear).year
+      }">${i}</div>
     `;
     dayContainer.innerHTML = daysDom;
     daysContainer.appendChild(dayContainer);
@@ -975,7 +969,7 @@ function refreshSelectedDayInfo() {
       for (let i = 0; i < selectedDayQuestionKeys.length; i++) {
         let question =
           allJournals[selectedMonthString][selectedDayString].questions[
-            selectedDayQuestionKeys[i]
+          selectedDayQuestionKeys[i]
           ];
         let value = "";
         if (question.emotes) {
@@ -993,15 +987,14 @@ function refreshSelectedDayInfo() {
           <div>
             ${question.lable}
           </div>
-          ${
-            question.time
+          ${question.time
               ? `
             <div class="selectedQuestionTime">
               ${getFormattedTime(question.time)}
             </div>
           `
               : ""
-          }
+            }
         </div>
         <div class="selectedQuestionAnswer">${value}</div>
       </div>
@@ -1237,7 +1230,7 @@ function warningPupup(warning, callback, info = false) {
   }
   warningContainer.getElementsByClassName("warning")[0].innerText = warning;
   warningCancle.addEventListener(
-    "click",
+    "mousedown",
     () => {
       setTimeout(() => {
         callback(false);
@@ -1247,7 +1240,7 @@ function warningPupup(warning, callback, info = false) {
     { once: true }
   );
   warningDone.addEventListener(
-    "click",
+    "mousedown",
     () => {
       setTimeout(() => {
         callback(true);
@@ -1484,7 +1477,7 @@ export function monthChange(direction, ripple = true) {
   }
   updateCalander();
 }
-themeBtn.addEventListener("click", () => {
+themeBtn.addEventListener("mousedown", () => {
   JSON.stringify(currentTheme) == JSON.stringify(themes.Light)
     ? changeTheme(themes.Dark)
     : changeTheme(themes.Light);
@@ -1508,7 +1501,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", toggleTransparentBackground);
   window.addEventListener("resize", toggleTransparentBackground);
 });
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("mousedown", () => {
   if (currentUser) {
     signOut();
     localStorage.clear();
@@ -1517,11 +1510,11 @@ loginBtn.addEventListener("click", () => {
     signIn();
   }
 });
-reportBtn.addEventListener("click", (e) => {
+reportBtn.addEventListener("mousedown", (e) => {
   windowNavigation(JOURNAL, "");
   updateView(JOURNAL);
 });
-calanderBtn.addEventListener("click", (e) => {
+calanderBtn.addEventListener("mousedown", (e) => {
   if (!editing) {
     updateView(CALENDAR);
     currentMonth = todaysMonth;
@@ -1544,7 +1537,7 @@ calanderBtn.addEventListener("click", (e) => {
     });
   }
 });
-userBtn.addEventListener("click", (e) => {
+userBtn.addEventListener("mousedown", (e) => {
   if (!editing) {
     cancleEdit();
     windowNavigation(PROFILE, "");
@@ -1561,13 +1554,13 @@ userBtn.addEventListener("click", (e) => {
     });
   }
 });
-prevMonthButton.addEventListener("click", () => {
+prevMonthButton.addEventListener("mousedown", () => {
   monthChange("previous");
 });
-nextMonthButton.addEventListener("click", () => {
+nextMonthButton.addEventListener("mousedown", () => {
   monthChange("next");
 });
-resetCalanderButton.addEventListener("click", () => {
+resetCalanderButton.addEventListener("mousedown", () => {
   currentMonth = todaysMonth;
   currentYear = todaysYear;
   selectedDate = todaysDate;
@@ -1578,7 +1571,7 @@ resetCalanderButton.addEventListener("click", () => {
   calanderSwipe("reset");
   updateCalander();
 });
-reportEditBtn.addEventListener("click", () => {
+reportEditBtn.addEventListener("mousedown", () => {
   setTimeout(() => {
     editing = true;
     editQuestions = window.structuredClone(questions);
@@ -1587,7 +1580,7 @@ reportEditBtn.addEventListener("click", () => {
     showQuestionsEditControlls();
   }, 100);
 });
-reportEditCancleBtn.addEventListener("click", () => {
+reportEditCancleBtn.addEventListener("mousedown", () => {
   setTimeout(() => {
     if (!editing) {
       cancleEdit();
@@ -1598,13 +1591,13 @@ reportEditCancleBtn.addEventListener("click", () => {
     }
   }, 100);
 });
-reportEditDoneBtn.addEventListener("click", () => {
+reportEditDoneBtn.addEventListener("mousedown", () => {
   setTimeout(() => {
     if (
       editQuestions[NEWQUESTIONID] &&
       editQuestions[NEWQUESTIONID].id == NEWQUESTIONID
     ) {
-      warningPupup("Please Enter a valid ID", () => {}, true);
+      warningPupup("Please Enter a valid ID", () => { }, true);
     } else if (
       editQuestions[NEWQUESTIONID] &&
       editQuestions[NEWQUESTIONID].id != NEWQUESTIONID
@@ -1626,7 +1619,7 @@ reportEditDoneBtn.addEventListener("click", () => {
     }
   }, 100);
 });
-reportAddQuestionBtn.addEventListener("click", (e) => {
+reportAddQuestionBtn.addEventListener("mousedown", (e) => {
   if (addQuestionPopup.classList.contains("hidden")) {
     let height = e.srcElement.offsetHeight + 20;
     addQuestionPopup.style.top = height + "px";
@@ -1636,34 +1629,258 @@ reportAddQuestionBtn.addEventListener("click", (e) => {
     hidePopup();
   }
 });
-backdrop.addEventListener("click", () => {
+backdrop.addEventListener("mousedown", () => {
   hidePopup();
 });
 addQuestionPopup
   .getElementsByClassName("small-text")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("small-text");
     }, 100);
   });
 addQuestionPopup
   .getElementsByClassName("toggle")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("toggle");
     }, 100);
   });
 addQuestionPopup
   .getElementsByClassName("sliderOption")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("slider");
     }, 100);
   });
 addQuestionPopup
   .getElementsByClassName("large-text")[0]
-  .addEventListener("click", () => {
+  .addEventListener("mousedown", () => {
     setTimeout(() => {
       addQuestion("large-text");
     }, 100);
   });
+
+// --- DRAG AND DROP LOGIC ---
+
+let isDragging = false;
+let currentDraggedItem = null;
+let dragPlaceholder = null;
+let dragOffsetY = 0;
+let lastMouseY = 0;
+let autoScrollSpeed = 0;
+let scrollInterval = null;
+let lastSwappedElement = null;
+let lastSwapTime = 0;
+const SWAP_COOLDOWN_MS = 200;
+
+// Use the existing container variable or define it if not available scope-wide
+const questionsContainerEl = document.getElementsByClassName("questionsContainer")[0];
+
+function handleDragStart(e) {
+  if (!editing) return;
+
+  // Prevent dragging when interacting with controls
+  if (e.target.closest('.detailedEditBtn') ||
+    e.target.closest('.detailedControlls') ||
+    e.target.closest('.detailedControllsContainer') ||
+    e.target.closest('.positionControlls') ||
+    e.target.tagName === 'INPUT' ||
+    e.target.tagName === 'TEXTAREA') {
+    return;
+  }
+
+  const questionDiv = e.target.closest(".question");
+  if (!questionDiv) return;
+
+  isDragging = true;
+  currentDraggedItem = questionDiv;
+  lastSwappedElement = null;
+
+  const rect = currentDraggedItem.getBoundingClientRect();
+  const containerRect = questionsContainerEl.getBoundingClientRect();
+
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  dragOffsetY = clientY - rect.top;
+  lastMouseY = clientY;
+
+  // Create Placeholder
+  dragPlaceholder = document.createElement('div');
+  dragPlaceholder.classList.add('drag-placeholder');
+  dragPlaceholder.style.width = rect.width + "px";
+  dragPlaceholder.style.height = rect.height + "px";
+  dragPlaceholder.style.order = currentDraggedItem.style.order;
+  dragPlaceholder.style.marginBottom = "10px";
+
+  questionsContainerEl.appendChild(dragPlaceholder);
+
+  // Setup Dragged Item styles
+  currentDraggedItem.style.width = rect.width + "px";
+  currentDraggedItem.style.height = rect.height + "px";
+  currentDraggedItem.style.position = "absolute";
+  currentDraggedItem.style.zIndex = "1000";
+  currentDraggedItem.style.left = "20px";
+  currentDraggedItem.classList.add("dragging");
+
+  // Set initial position
+  updateDraggedItemPosition();
+
+  window.addEventListener("mousemove", handleDragMove, { passive: false });
+  window.addEventListener("touchmove", handleDragMove, { passive: false });
+  window.addEventListener("mouseup", handleDragEnd);
+  window.addEventListener("touchend", handleDragEnd);
+
+  startAutoScroll();
+}
+
+// Helper to keep the dragged item under the mouse, even during scroll
+function updateDraggedItemPosition() {
+  if (!currentDraggedItem) return;
+  const containerRect = questionsContainerEl.getBoundingClientRect();
+
+  // Calculate top relative to the container
+  let newTop = lastMouseY - containerRect.top - dragOffsetY;
+
+  // Boundary checks
+  const maxTop = containerRect.height - currentDraggedItem.offsetHeight;
+  if (newTop < 0) newTop = 0;
+  if (newTop > maxTop) newTop = maxTop;
+
+  currentDraggedItem.style.top = newTop + "px";
+}
+
+function handleDragMove(e) {
+  if (!isDragging || !currentDraggedItem) return;
+  e.preventDefault();
+
+  // Update global mouse position
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  lastMouseY = clientY;
+
+  updateDraggedItemPosition();
+
+  // Calculate Scroll Speed based on viewport proximity
+  const viewportHeight = window.innerHeight;
+  if (clientY < 100) {
+    autoScrollSpeed = -15; // Faster scroll up
+  } else if (clientY > viewportHeight - 100) {
+    autoScrollSpeed = 15; // Faster scroll down
+  } else {
+    autoScrollSpeed = 0;
+  }
+
+  checkSwap(lastMouseY);
+}
+
+function startAutoScroll() {
+  if (scrollInterval) clearInterval(scrollInterval);
+  scrollInterval = setInterval(() => {
+    if (autoScrollSpeed !== 0) {
+      window.scrollBy(0, autoScrollSpeed);
+      updateDraggedItemPosition();
+      checkSwap(lastMouseY);
+    }
+  }, 16);
+}
+
+function checkSwap(mouseY) {
+  // Get all siblings and SORT them visually by their order.
+  // This fixes the "gap" bug where deleting item #2 broke swapping for #3.
+  const siblings = Array.from(questionsContainerEl.children)
+    .filter(c => c !== currentDraggedItem && c !== dragPlaceholder && c.classList.contains('question'))
+    .sort((a, b) => parseInt(a.style.order) - parseInt(b.style.order));
+
+  const currentOrder = parseInt(dragPlaceholder.style.order);
+
+  // Find the visual index of the placeholder among sorted siblings
+  // We search for the first element that comes AFTER our placeholder
+  const indexBelow = siblings.findIndex(s => parseInt(s.style.order) > currentOrder);
+
+  let neighborAbove, neighborBelow;
+
+  if (indexBelow === -1) {
+    // We are at the bottom, so the neighbor above is the last element
+    neighborAbove = siblings[siblings.length - 1];
+    neighborBelow = null;
+  } else if (indexBelow === 0) {
+    // We are at the top
+    neighborAbove = null;
+    neighborBelow = siblings[0];
+  } else {
+    // We are in the middle
+    neighborAbove = siblings[indexBelow - 1];
+    neighborBelow = siblings[indexBelow];
+  }
+
+  const now = Date.now();
+
+  // Check Swap Up
+  if (neighborAbove && (lastSwappedElement !== neighborAbove || (now - lastSwapTime > SWAP_COOLDOWN_MS))) {
+    const box = neighborAbove.getBoundingClientRect();
+    // Swap if mouse crosses into the upper item's territory (bottom 30%)
+    if (mouseY < (box.bottom - box.height * 0.3)) {
+      swapOrders(dragPlaceholder, neighborAbove);
+      return;
+    }
+  }
+
+  // Check Swap Down
+  if (neighborBelow && (lastSwappedElement !== neighborBelow || (now - lastSwapTime > SWAP_COOLDOWN_MS))) {
+    const box = neighborBelow.getBoundingClientRect();
+    // Swap if mouse crosses into the lower item's territory (top 30%)
+    if (mouseY > (box.top + box.height * 0.3)) {
+      swapOrders(dragPlaceholder, neighborBelow);
+      return;
+    }
+  }
+}
+
+function swapOrders(item1, item2) {
+  const temp = item1.style.order;
+  item1.style.order = item2.style.order;
+  item2.style.order = temp;
+  lastSwappedElement = item2;
+  lastSwapTime = Date.now();
+}
+
+function handleDragEnd(e) {
+  if (!isDragging || !currentDraggedItem) return;
+
+  isDragging = false;
+  clearInterval(scrollInterval);
+  autoScrollSpeed = 0;
+  lastSwappedElement = null;
+
+  window.removeEventListener("mousemove", handleDragMove);
+  window.removeEventListener("touchmove", handleDragMove);
+  window.removeEventListener("mouseup", handleDragEnd);
+  window.removeEventListener("touchend", handleDragEnd);
+
+  // Apply Final Order
+  const finalOrder = dragPlaceholder.style.order;
+  currentDraggedItem.style.order = finalOrder;
+
+  dragPlaceholder.remove();
+  dragPlaceholder = null;
+
+  // Reset Styles
+  currentDraggedItem.classList.remove("dragging");
+  currentDraggedItem.style.position = "";
+  currentDraggedItem.style.top = "";
+  currentDraggedItem.style.left = "";
+  currentDraggedItem.style.width = "";
+  currentDraggedItem.style.height = "";
+  currentDraggedItem.style.zIndex = "";
+
+  // Sync Data Model
+  const allQuestions = Array.from(questionsContainerEl.children);
+  for (const q of allQuestions) {
+    // Find the ID associated with this DOM element
+    const id = Object.keys(questionsDom).find(key => questionsDom[key] === q);
+    if (id && editQuestions[id]) {
+      editQuestions[id].order = parseInt(q.style.order);
+    }
+  }
+
+  refreshQuestionStyling();
+}

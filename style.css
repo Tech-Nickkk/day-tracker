@@ -848,6 +848,7 @@ input[type="text"].emojiInput {
 .selectedQuestionLable {
   display: flex;
   justify-content: space-between;
+  margin-bottom: .8rem;
   opacity: 0.6;
   font-size: 18px;
 }
@@ -860,6 +861,7 @@ input[type="text"].emojiInput {
 }
 .selectedQuestionAnswer {
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 .selectedDayQuestion {
   margin-top: 15px;
@@ -1223,4 +1225,29 @@ input[type="text"].emojiInput {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+/* style.css for drag & drop feature */
+
+.questionsContainer {
+  position: relative; 
+}
+
+.question.dragging {
+  position: absolute;
+  z-index: 1000;
+  background-color: var(--background); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  opacity: 0.95;
+  border: 1px solid var(--primary);
+  cursor: grabbing;
+  margin: 0;
+}
+
+.drag-placeholder {
+  background-color: rgba(0, 0, 0, 0.1); 
+  border-radius: 10px;
+  border: 2px dashed var(--lightBorder);
+  box-sizing: border-box;
+  transition: order 200ms ease;
 }
