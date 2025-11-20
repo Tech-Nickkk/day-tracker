@@ -607,7 +607,6 @@ function createQuestion(questionData, creating = false) {
 
   questionEditControlls.addEventListener("mousedown", handleDragStart);
   questionEditControlls.addEventListener("touchstart", handleDragStart, { passive: false });
-  questionEditControlls.style.cursor = "grab";
 
   detailedEditBtn.addEventListener("mousedown", () => {
     setTimeout(() => {

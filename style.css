@@ -1239,6 +1239,7 @@ input[type="text"].emojiInput {
   background-color: var(--background); 
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   opacity: 0.95;
+  border-radius: 10px;
   border: 1px solid var(--primary);
   cursor: grabbing;
   margin: 0;
@@ -1250,4 +1251,12 @@ input[type="text"].emojiInput {
   border: 2px dashed var(--lightBorder);
   box-sizing: border-box;
   transition: order 200ms ease;
+}
+
+.editControlls {
+  cursor: grab;
+}
+
+.question.dragging .editControlls {
+  cursor: grabbing;
 }
